@@ -13,7 +13,7 @@ const allUsers = [{
 app.use(cors())
 
 
-const createUser = ({input}) => {
+const createUser = (input) => {
     const id = Date.now()
     return {
         id, ...input
