@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Form, Button, Row, Col } from "antd";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../query/query";
@@ -6,6 +6,12 @@ import { GET_ALL_USERS } from "../../query/query";
 function App() {
   const [users, setUsers] = useState<any[]>([]);
   const { data, loading, error } = useQuery(GET_ALL_USERS);
+
+  useEffect(() => {
+    if (!loading) {
+      setUsers(data.getAllUsers);
+    }
+  }, [data]);
 
   return (
     <div className="App">
@@ -31,10 +37,8 @@ function App() {
       </Form>
       <div>
         {users.map((el) => (
-          <ul>
-            <li
-              key={el.id}
-            >{`Id пользователя: ${el.id}. Имя: ${el.username}. Возраст: ${el.age}`}</li>
+          <ul key={el.id}>
+            <li>{`Id пользователя: ${el.id}. Имя: ${el.username}. Возраст: ${el.age}`}</li>
           </ul>
         ))}
       </div>
