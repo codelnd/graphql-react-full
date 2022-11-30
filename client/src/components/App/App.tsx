@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Form, Button, Row, Col } from "antd";
 
 function App() {
+  const [users, setUsers] = useState<any[]>([]);
+
   return (
     <div className="App">
       <Form>
@@ -24,6 +26,15 @@ function App() {
           </Col>
         </Row>
       </Form>
+      <div>
+        {users.map((el) => (
+          <ul>
+            <li
+              key={el.id}
+            >{`Id пользователя: ${el.id}. Имя: ${el.username}. Возраст: ${el.age}`}</li>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 }
