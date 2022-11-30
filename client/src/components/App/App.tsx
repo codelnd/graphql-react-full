@@ -13,6 +13,10 @@ function App() {
     }
   }, [data]);
 
+  if (loading) {
+    return <h1>Идет загрузка...</h1>;
+  }
+
   return (
     <div className="App">
       <Form>
