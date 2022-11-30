@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Input, Form, Button, Row, Col } from "antd";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_USERS } from "../../query/query";
 
 function App() {
   const [users, setUsers] = useState<any[]>([]);
+  const { data, loading, error } = useQuery(GET_ALL_USERS);
 
   return (
     <div className="App">
