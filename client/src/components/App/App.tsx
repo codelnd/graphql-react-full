@@ -3,6 +3,7 @@ import { Input, Form, Button, Row, Col } from "antd";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../query/query";
 import { CREATE_USER } from "../../mutations/mutations";
+import { Simulate } from "react-dom/test-utils";
 
 function App() {
   const { data, loading, error } = useQuery(GET_ALL_USERS);
@@ -17,7 +18,21 @@ function App() {
     }
   }, [data]);
 
-  const createUser = () => {};
+  const createUser = (e: any) => {
+    e.preventDefault();
+    createdUser({
+      variables: {
+        input: {
+          username,
+          age,
+        },
+      },
+    }).then(({ data }) => {
+      console.log(data);
+      setUsername("");
+      setAge(0);
+    });
+  };
 
   if (loading) {
     return <h1>Идет загрузка...</h1>;
@@ -44,7 +59,9 @@ function App() {
         </Row>
         <Row justify="center">
           <Col xs={3}>
-            <Button type="primary">Создать пользователя</Button>
+            <Button onClick={createUser} type="primary">
+              Создать пользователя
+            </Button>
           </Col>
           <Col xs={3}>
             <Button type="primary">Получить пользователей</Button>
