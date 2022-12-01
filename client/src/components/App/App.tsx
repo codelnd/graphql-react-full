@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Input, Form, Button, Row, Col } from "antd";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../query/query";
+import { CREATE_USER } from "../../mutations/mutations";
 
 function App() {
   const { data, loading, error } = useQuery(GET_ALL_USERS);
+  const [createdUser] = useMutation(CREATE_USER);
   const [users, setUsers] = useState<any[]>([]);
   const [username, setUsername] = useState("");
   const [age, setAge] = useState(0);
