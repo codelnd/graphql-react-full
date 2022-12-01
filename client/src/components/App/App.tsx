@@ -57,7 +57,7 @@ function App() {
           <Col xs={6}>
             <Input
               value={age}
-              onChange={(e: any) => setAge(e.target.value)}
+              onChange={(e: any) => setAge(+e.target.value)}
             ></Input>
           </Col>
         </Row>
