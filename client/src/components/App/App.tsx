@@ -4,14 +4,18 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../query/query";
 
 function App() {
-  const [users, setUsers] = useState<any[]>([]);
   const { data, loading, error } = useQuery(GET_ALL_USERS);
+  const [users, setUsers] = useState<any[]>([]);
+  const [username, setUsername] = useState("");
+  const [age, setAge] = useState(0);
 
   useEffect(() => {
     if (!loading) {
       setUsers(data.getAllUsers);
     }
   }, [data]);
+
+  const createUser = () => {};
 
   if (loading) {
     return <h1>Идет загрузка...</h1>;
@@ -22,12 +26,18 @@ function App() {
       <Form>
         <Row justify="center">
           <Col xs={6}>
-            <Input></Input>
+            <Input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></Input>
           </Col>
         </Row>
         <Row justify="center">
           <Col xs={6}>
-            <Input></Input>
+            <Input
+              value={age}
+              onChange={(e: any) => setAge(e.target.value)}
+            ></Input>
           </Col>
         </Row>
         <Row justify="center">
