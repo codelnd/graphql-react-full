@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Input, Form, Button, Row, Col } from "antd";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_ALL_USERS } from "../../query/query";
+import { GET_ALL_USERS, GET_USER } from "../../query/query";
 import { CREATE_USER } from "../../mutations/mutations";
 
 function App() {
   const { data, loading, error, refetch } = useQuery(GET_ALL_USERS);
+  const {
+    data: user,
+    loading: loadingUser,
+    refetch: refetchUser,
+  } = useQuery(GET_USER, {
+    variables: {
+      id: 1,
+    },
+  });
   const [createdUser] = useMutation(CREATE_USER);
   const [users, setUsers] = useState<any[]>([]);
   const [username, setUsername] = useState("");
@@ -20,6 +29,12 @@ function App() {
   const getAllUsers = (e: React.FormEvent) => {
     e.preventDefault();
     refetch();
+  };
+
+  const getUser = (e: React.FormEvent) => {
+    e.preventDefault();
+    refetchUser();
+    console.log(user.getUser);
   };
 
   const createUser = (e: React.FormEvent) => {
@@ -70,6 +85,11 @@ function App() {
           <Col xs={3}>
             <Button onClick={getAllUsers} type="primary">
               Получить пользователей
+            </Button>
+          </Col>
+          <Col xs={3}>
+            <Button onClick={getUser} type="primary">
+              Получить пользователя
             </Button>
           </Col>
         </Row>
