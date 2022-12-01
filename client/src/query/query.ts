@@ -7,3 +7,11 @@ query {
   }
 }
 `);
+
+export const GET_USER = gql(`
+query ($id: ID) {
+  getUser (id: $id) {
+    id, username, age
+  }
+}
+`);

@@ -3,10 +3,9 @@ import { Input, Form, Button, Row, Col } from "antd";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../query/query";
 import { CREATE_USER } from "../../mutations/mutations";
-import { Simulate } from "react-dom/test-utils";
 
 function App() {
-  const { data, loading, error } = useQuery(GET_ALL_USERS);
+  const { data, loading, error, refetch } = useQuery(GET_ALL_USERS);
   const [createdUser] = useMutation(CREATE_USER);
   const [users, setUsers] = useState<any[]>([]);
   const [username, setUsername] = useState("");
@@ -18,7 +17,12 @@ function App() {
     }
   }, [data]);
 
-  const createUser = (e: any) => {
+  const getAllUsers = (e: React.FormEvent) => {
+    e.preventDefault();
+    refetch();
+  };
+
+  const createUser = (e: React.FormEvent) => {
     e.preventDefault();
     createdUser({
       variables: {
@@ -64,7 +68,9 @@ function App() {
             </Button>
           </Col>
           <Col xs={3}>
-            <Button type="primary">Получить пользователей</Button>
+            <Button onClick={getAllUsers} type="primary">
+              Получить пользователей
+            </Button>
           </Col>
         </Row>
       </Form>
